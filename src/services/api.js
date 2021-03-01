@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // URL da API
 const api = axios.create({
-    baseURL: "http://127.0.0.1:5000/"
+    baseURL: "https://api-predicao-permeancia.herokuapp.com/"
 });
 
 // Exporta a API para ser utilizada posteriormente
