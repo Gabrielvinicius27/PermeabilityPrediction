@@ -17,7 +17,7 @@ const LoadingIndicator: React.FC<itemProps> = ({texto,...rest}) => {
             {(promiseInProgress === true) ? (
             <div id='divLoading'>
                 <div className="loadingIndicator">
-                    <Loader type="ThreeDots" color="#00A86B" height={100} width={100}/>
+                    <Loader type="ThreeDots" color="#00A86B" height={50} width={100}/>
                     <label id='labelLoadingIndicator'>{texto}</label>
                 </div>
             </div>) : (null)}

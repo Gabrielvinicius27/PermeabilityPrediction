@@ -51,8 +51,6 @@ function MainPage (){
     'MIC PERF TOTAL', 'MIC PERF VERSO', 'NANO PER VERSO', 'NANO PERF TOT', 'NÃO PERFURAR', 
     'PERF 1 TOT', 'PÉ GAL 3 TOT']
            
-    
-
     const predict = async(e:FormEvent) => {
         e.preventDefault()
         let data:any = []
@@ -99,7 +97,7 @@ function MainPage (){
               }))
             setPrediction(Number(response.data.result))
         }catch(err){
-
+            console.log(err)
         }
     }
 
@@ -117,10 +115,21 @@ function MainPage (){
                     <h2>Preencha as características abaixo</h2>  
                     <h2>para calcular a permeância prevista</h2>
                 </div>
-                <LoadingIndicator texto="Fazendo a predição..."/>
                 <div className='formDiv'>
                     <form>
                         <div>
+                            <label>PP_TIPO_SACO_COLADO</label> 
+                            <select
+                                required
+                                value={PP_TIPO_SACO_COLADO}
+                                onChange={(e)=>{setPP_TIPO_SACO_COLADO(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {[
+                                        'COLVA','COLMI','COLPB','COLBA','COLME'
+                                    ].map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
                             <label>PP_ALTURA_UTIL</label> 
                             <input 
                                 type='Number'
@@ -135,6 +144,18 @@ function MainPage (){
                                 value={PP_FACE}
                                 onChange={(e)=>{setPP_FACE(Number(e.target.value))}}
                             ></input>
+                            <label>PP_PATCH</label> 
+                            <select
+                                required
+                                value={PP_PATCH}
+                                onChange={(e)=>{setPP_PATCH(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {[
+                                        'X','T','V','D','N','C','F'
+                                    ].map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
                             <label>PP_FUNDO</label> 
                             <input 
                                 type='Number'
@@ -149,86 +170,10 @@ function MainPage (){
                                 value={PP_FUNDO_INF}
                                 onChange={(e)=>{setPP_FUNDO_INF(Number(e.target.value))}}
                             ></input>
-                            <label>PP_VOLUME</label> 
+                            <label>PP_VOLUME (Calculado automaticamente)</label> 
                             <label
                                 style={{font: "400 1.4rem Montserrat"}}
                             >{PP_VOLUME}</label>
-                
-            
-                            <label>PP_FUROS_COLADEIRA</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_FUROS_COLADEIRA}
-                                onChange={(e)=>{setPP_FUROS_COLADEIRA(Number(e.target.value))}}
-                            ></input>
-                            <label>PP_DIAMETRO_FUROS_COLADEI</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_DIAMETRO_FUROS_COLADEI}
-                                onChange={(e)=>{setPP_DIAMETRO_FUROS_COLADEI(Number(e.target.value))}}
-                            ></input>
-                            <label>PP_NUMERO_FOLHAS</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_NUMERO_FOLHAS}
-                                onChange={(e)=>{setPP_NUMERO_FOLHAS(Number(e.target.value))}}
-                            ></input>
-                            <label>PP_GRAMATURA_EXTERNO</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_GRAMATURA_EXTERNO}
-                                onChange={(e)=>{setPP_GRAMATURA_EXTERNO(Number(e.target.value))}}
-                            ></input>
-                            <label>PP_GRAMATURA_2</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_GRAMATURA_2}
-                                onChange={(e)=>{setPP_GRAMATURA_2(Number(e.target.value))}}
-                            ></input>                        
-                    
-            
-                            <label>PP_GRAMATURA_3</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_GRAMATURA_3}
-                                onChange={(e)=>{setPP_GRAMATURA_3(Number(e.target.value))}}
-                            ></input>
-                            <label>PP_GRAMATURA_4</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_GRAMATURA_4}
-                                onChange={(e)=>{setPP_GRAMATURA_4(Number(e.target.value))}}
-                            ></input>
-                            <label>PP_GRAMATURA_5</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_GRAMATURA_5}
-                                onChange={(e)=>{setPP_GRAMATURA_5(Number(e.target.value))}}
-                            ></input>
-                            <label>PP_GRAMATURA_INTERNO</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_GRAMATURA_INTERNO}
-                                onChange={(e)=>{setPP_GRAMATURA_INTERNO(Number(e.target.value))}}
-                            ></input>
-                            <label>PP_LARGURA_PEAD</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_LARGURA_PEAD}
-                                onChange={(e)=>{setPP_LARGURA_PEAD(Number(e.target.value))}}
-                            ></input>
-                
-            
                             <label>PP_VALVULA</label> 
                             <input 
                                 type='Number'
@@ -236,30 +181,6 @@ function MainPage (){
                                 value={PP_VALVULA}
                                 onChange={(e)=>{setPP_VALVULA(Number(e.target.value))}}
                             ></input>
-                            <label>PP_TIPO_SACO_COLADO</label> 
-                            <select
-                                required
-                                value={PP_TIPO_SACO_COLADO}
-                                onChange={(e)=>{setPP_TIPO_SACO_COLADO(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {[
-                                        'COLVA','COLMI','COLPB','COLBA','COLME'
-                                    ].map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
-                            <label>PP_PATCH</label> 
-                            <select
-                                required
-                                value={PP_PATCH}
-                                onChange={(e)=>{setPP_PATCH(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {[
-                                        'X','T','V','D','N','C','F'
-                                    ].map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
                             <label>PP_PERFURADO_TUBEIRA</label> 
                             <select
                                 required
@@ -284,7 +205,27 @@ function MainPage (){
                                         return(<option key={index} value={valor}>{valor}</option>)
                                     })}
                             </select>
-                
+                            <label>PP_FUROS_COLADEIRA</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_FUROS_COLADEIRA}
+                                onChange={(e)=>{setPP_FUROS_COLADEIRA(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_DIAMETRO_FUROS_COLADEI</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_DIAMETRO_FUROS_COLADEI}
+                                onChange={(e)=>{setPP_DIAMETRO_FUROS_COLADEI(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_NUMERO_FOLHAS</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_NUMERO_FOLHAS}
+                                onChange={(e)=>{setPP_NUMERO_FOLHAS(Number(e.target.value))}}
+                            ></input>
                             <label>PP_PAPEL_EXTERNO</label> 
                             <select
                                 required
@@ -295,6 +236,13 @@ function MainPage (){
                                         return(<option key={index} value={valor}>{valor}</option>)
                                     })}
                             </select>
+                            <label>PP_GRAMATURA_EXTERNO</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_EXTERNO}
+                                onChange={(e)=>{setPP_GRAMATURA_EXTERNO(Number(e.target.value))}}
+                            ></input>
                             <label>PP_PAPEL_2</label> 
                             <select
                                 required
@@ -305,7 +253,14 @@ function MainPage (){
                                         return(<option key={index} value={valor}>{valor}</option>)
                                     })}
                             </select>
-                            <label>PP_PAPEL_3</label> 
+                            <label>PP_GRAMATURA_2</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_2}
+                                onChange={(e)=>{setPP_GRAMATURA_2(Number(e.target.value))}}
+                            ></input>                        
+                             <label>PP_PAPEL_3</label> 
                             <select
                                 required
                                 value={PP_PAPEL_3}
@@ -315,6 +270,13 @@ function MainPage (){
                                         return(<option key={index} value={valor}>{valor}</option>)
                                     })}
                             </select>
+                            <label>PP_GRAMATURA_3</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_3}
+                                onChange={(e)=>{setPP_GRAMATURA_3(Number(e.target.value))}}
+                            ></input>
                             <label>PP_PAPEL_4</label> 
                             <select
                                 required
@@ -325,6 +287,13 @@ function MainPage (){
                                         return(<option key={index} value={valor}>{valor}</option>)
                                     })}
                             </select>
+                            <label>PP_GRAMATURA_4</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_4}
+                                onChange={(e)=>{setPP_GRAMATURA_4(Number(e.target.value))}}
+                            ></input>
                             <label>PP_PAPEL_5</label> 
                             <select
                                 required
@@ -335,7 +304,13 @@ function MainPage (){
                                         return(<option key={index} value={valor}>{valor}</option>)
                                     })}
                             </select>
-                
+                            <label>PP_GRAMATURA_5</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_5}
+                                onChange={(e)=>{setPP_GRAMATURA_5(Number(e.target.value))}}
+                            ></input>
                             <label>PP_PAPEL_INTERNO</label> 
                             <select
                                 required
@@ -346,6 +321,13 @@ function MainPage (){
                                         return(<option key={index} value={valor}>{valor}</option>)
                                     })}
                             </select>
+                            <label>PP_GRAMATURA_INTERNO</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_INTERNO}
+                                onChange={(e)=>{setPP_GRAMATURA_INTERNO(Number(e.target.value))}}
+                            ></input>
                             <label>PP_TIP_PERF_FOL_EXT</label> 
                             <select
                                 required
@@ -407,6 +389,13 @@ function MainPage (){
                                         return(<option key={index} value={valor}>{valor}</option>)
                                     })}
                             </select>
+                            <label>PP_LARGURA_PEAD</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_LARGURA_PEAD}
+                                onChange={(e)=>{setPP_LARGURA_PEAD(Number(e.target.value))}}
+                            ></input>
                             <div className='predictionDiv'>
                                 <div className="resultDiv">
                                     <p>A permeância prevista é</p>
@@ -414,10 +403,12 @@ function MainPage (){
                                         (<p style={{font: "600 0.8rem Montserrat", textAlign: "center"}}>
                                             Para prever a permeância clique em calcular</p>):(<label>{prediction}</label>)}
                                 </div>
+                                <LoadingIndicator texto="Fazendo a predição..."/> 
                                 <div className='buttonPredictDiv'>
                                     <button className="buttonPredict" onClick={(e)=>predict(e)}>Calcular</button>
                                     <button className="buttonCancel">Limpar</button>
-                                </div>    
+                                </div>  
+                                
                             </div>
                         </div>
                     </form> 
