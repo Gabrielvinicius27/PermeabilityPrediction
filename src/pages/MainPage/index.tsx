@@ -6,15 +6,6 @@ import "./styles.css";
 
 function MainPage (){
 
-    const [formStep, setFormStep] = useState(0);
-    const [color1, setColor1] = useState('#013220');
-    const [color2, setColor2] = useState('#013220');
-    const [color3, setColor3] = useState('#013220');
-    const [color4, setColor4] = useState('#013220');
-    const [color5, setColor5] = useState('#013220');
-    const [color6, setColor6] = useState('#013220');
-    const [color7, setColor7] = useState('#013220');
-
     const [prediction, setPrediction] = useState(0);
 
     const [PP_ALTURA_UTIL, setPP_ALTURA_UTIL] = useState(0);
@@ -59,336 +50,8 @@ function MainPage (){
     'CILIN 2 TOT', 'CILIN 3 TOT', 'MIC PER FRENTE', 'MIC PERF FACE', 'MIC PERF LAT', 
     'MIC PERF TOTAL', 'MIC PERF VERSO', 'NANO PER VERSO', 'NANO PERF TOT', 'NÃO PERFURAR', 
     'PERF 1 TOT', 'PÉ GAL 3 TOT']
-
-    const multiStepForm = (step:number) => {
-        switch(step){
-            case 0:
-                return(
-                    <React.Fragment>
-                        <label>PP_ALTURA_UTIL</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_ALTURA_UTIL}
-                            onChange={(e)=>{setPP_ALTURA_UTIL(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_FACE</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_FACE}
-                            onChange={(e)=>{setPP_FACE(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_FUNDO</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_FUNDO}
-                            onChange={(e)=>{setPP_FUNDO(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_FUNDO_INF</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_FUNDO_INF}
-                            onChange={(e)=>{setPP_FUNDO_INF(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_VOLUME</label> 
-                        <label
-                            style={{font: "400 1.4rem Montserrat"}}
-                        >{PP_VOLUME}</label>
-                    </React.Fragment>
-                )
-            case 1:
-                return(
-                    <React.Fragment>
-                        <label>PP_FUROS_COLADEIRA</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_FUROS_COLADEIRA}
-                            onChange={(e)=>{setPP_FUROS_COLADEIRA(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_DIAMETRO_FUROS_COLADEI</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_DIAMETRO_FUROS_COLADEI}
-                            onChange={(e)=>{setPP_DIAMETRO_FUROS_COLADEI(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_NUMERO_FOLHAS</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_NUMERO_FOLHAS}
-                            onChange={(e)=>{setPP_NUMERO_FOLHAS(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_GRAMATURA_EXTERNO</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_GRAMATURA_EXTERNO}
-                            onChange={(e)=>{setPP_GRAMATURA_EXTERNO(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_GRAMATURA_2</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_GRAMATURA_2}
-                            onChange={(e)=>{setPP_GRAMATURA_2(Number(e.target.value))}}
-                        ></input>                        
-                    </React.Fragment>
-                    )
-            case 2:
-                return(
-                    <React.Fragment>
-                        <label>PP_GRAMATURA_3</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_GRAMATURA_3}
-                            onChange={(e)=>{setPP_GRAMATURA_3(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_GRAMATURA_4</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_GRAMATURA_4}
-                            onChange={(e)=>{setPP_GRAMATURA_4(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_GRAMATURA_5</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_GRAMATURA_5}
-                            onChange={(e)=>{setPP_GRAMATURA_5(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_GRAMATURA_INTERNO</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_GRAMATURA_INTERNO}
-                            onChange={(e)=>{setPP_GRAMATURA_INTERNO(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_LARGURA_PEAD</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_LARGURA_PEAD}
-                            onChange={(e)=>{setPP_LARGURA_PEAD(Number(e.target.value))}}
-                        ></input>
-                    </React.Fragment>
-                )
-            case 3:
-                return(
-                    <React.Fragment>
-                        <label>PP_VALVULA</label> 
-                        <input 
-                            type='Number'
-                            required
-                            value={PP_VALVULA}
-                            onChange={(e)=>{setPP_VALVULA(Number(e.target.value))}}
-                        ></input>
-                        <label>PP_TIPO_SACO_COLADO</label> 
-                        <select
-                            required
-                            value={PP_TIPO_SACO_COLADO}
-                            onChange={(e)=>{setPP_TIPO_SACO_COLADO(e.target.value)}}>
-                                <option value="0"></option>
-                                {[
-                                    'COLVA','COLMI','COLPB','COLBA','COLME'
-                                ].map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_PATCH</label> 
-                        <select
-                            required
-                            value={PP_PATCH}
-                            onChange={(e)=>{setPP_PATCH(e.target.value)}}>
-                                <option value="0"></option>
-                                {[
-                                    'X','T','V','D','N','C','F'
-                                ].map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_PERFURADO_TUBEIRA</label> 
-                        <select
-                            required
-                            value={PP_PERFURADO_TUBEIRA}
-                            onChange={(e)=>{setPP_PERFURADO_TUBEIRA(e.target.value)}}>
-                                <option value="0"></option>
-                                {[
-                                    'S','N'
-                                ].map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_PERFURADO_COLADEIRA</label> 
-                        <select
-                            required
-                            value={PP_PERFURADO_COLADEIRA}
-                            onChange={(e)=>{setPP_PERFURADO_COLADEIRA(e.target.value)}}>
-                                <option value="0"></option>
-                                {[
-                                    'S','N'
-                                ].map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                    </React.Fragment>
-                )
-            case 4:
-                return(
-                    <React.Fragment>
-                        <label>PP_PAPEL_EXTERNO</label> 
-                        <select
-                            required
-                            value={PP_PAPEL_EXTERNO}
-                            onChange={(e)=>{setPP_PAPEL_EXTERNO(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPapeis.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_PAPEL_2</label> 
-                        <select
-                            required
-                            value={PP_PAPEL_2}
-                            onChange={(e)=>{setPP_PAPEL_2(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPapeis.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_PAPEL_3</label> 
-                        <select
-                            required
-                            value={PP_PAPEL_3}
-                            onChange={(e)=>{setPP_PAPEL_3(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPapeis.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_PAPEL_4</label> 
-                        <select
-                            required
-                            value={PP_PAPEL_4}
-                            onChange={(e)=>{setPP_PAPEL_4(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPapeis.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_PAPEL_5</label> 
-                        <select
-                            required
-                            value={PP_PAPEL_5}
-                            onChange={(e)=>{setPP_PAPEL_5(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPapeis.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                    </React.Fragment>
-                )
-            case 5:
-                return(
-                    <React.Fragment>
-                        <label>PP_PAPEL_INTERNO</label> 
-                        <select
-                            required
-                            value={PP_PAPEL_INTERNO}
-                            onChange={(e)=>{setPP_PAPEL_INTERNO(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPapeis.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_TIP_PERF_FOL_EXT</label> 
-                        <select
-                            required
-                            value={PP_TIP_PERF_FOL_EXT}
-                            onChange={(e)=>{setPP_TIP_PERF_FOL_EXT(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPerfuracoes.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_TIP_PERF_FOL_2</label> 
-                        <select
-                            required
-                            value={PP_TIP_PERF_FOL_2}
-                            onChange={(e)=>{setPP_TIP_PERF_FOL_2(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPerfuracoes.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_TIP_PERF_FOL_3</label> 
-                        <select
-                            required
-                            value={PP_TIP_PERF_FOL_3}
-                            onChange={(e)=>{setPP_TIP_PERF_FOL_3(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPerfuracoes.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_TIP_PERF_FOL_4</label> 
-                        <select
-                            required
-                            value={PP_TIP_PERF_FOL_4}
-                            onChange={(e)=>{setPP_TIP_PERF_FOL_4(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPerfuracoes.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                    </React.Fragment>
-                )
-            case 6:
-                return(
-                    <React.Fragment>
-                        <label>PP_TIP_PERF_FOL_5</label> 
-                        <select
-                            required
-                            value={PP_TIP_PERF_FOL_5}
-                            onChange={(e)=>{setPP_TIP_PERF_FOL_5(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPerfuracoes.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <label>PP_TIP_PERF_FOL_INT</label> 
-                        <select
-                            required
-                            value={PP_TIP_PERF_FOL_INT}
-                            onChange={(e)=>{setPP_TIP_PERF_FOL_INT(e.target.value)}}>
-                                <option value="0"></option>
-                                {   listaPerfuracoes.map((valor:any, index)=>{
-                                    return(<option key={index} value={valor}>{valor}</option>)
-                                })}
-                        </select>
-                        <div className='predictionDiv'>
-                            <div className="resultDiv">
-                                <p>A permeância prevista é</p>
-                                {(prediction)===0?
-                                    (<p style={{font: "600 0.8rem Montserrat", textAlign: "center"}}>
-                                        Para prever a permeância clique em calcular</p>):(<label>{prediction}</label>)}
-                            </div>
-                            <div className='buttonPredictDiv'>
-                                <button className="buttonPredict" onClick={(e)=>predict(e)}>Calcular</button>
-                                <button className="buttonCancel">Limpar</button>
-                            </div>    
-                        </div>
-                        
-                    </React.Fragment>
-                )
-        }
-    }
+           
+    
 
     const predict = async(e:FormEvent) => {
         e.preventDefault()
@@ -439,82 +102,6 @@ function MainPage (){
 
         }
     }
-    const mudaStep = (e:FormEvent,direction:string) => {
-        e.preventDefault()
-        if (direction==='decrementa'){
-            setFormStep((formStep>0)?(formStep-1):(formStep))
-        }
-        if (direction==='incrementa'){
-            setFormStep((formStep<6)?(formStep+1):(formStep))
-        }
-    }
-
-    useEffect(()=>{
-        switch(formStep){
-            case 0:
-                setColor1('#03C04A')
-                setColor2('#013220')
-                setColor3('#013220')
-                setColor4('#013220')
-                setColor5('#013220')
-                setColor6('#013220')
-                setColor7('#013220')
-                break;
-            case 1:
-                setColor1('#013220')
-                setColor2('#03C04A')
-                setColor3('#013220')
-                setColor4('#013220')
-                setColor5('#013220')
-                setColor6('#013220')
-                setColor7('#013220')
-                break;
-            case 2:
-                setColor1('#013220')
-                setColor2('#013220')
-                setColor3('#03C04A')
-                setColor4('#013220')
-                setColor5('#013220')
-                setColor6('#013220')
-                setColor7('#013220')
-                break;
-            case 3:
-                setColor1('#013220')
-                setColor2('#013220')
-                setColor3('#013220')
-                setColor4('#03C04A')
-                setColor5('#013220')
-                setColor6('#013220')
-                break;
-            case 4:
-                setColor1('#013220')
-                setColor2('#013220')
-                setColor3('#013220')
-                setColor4('#013220')
-                setColor5('#03C04A')
-                setColor6('#013220')
-                setColor7('#013220')
-                break;
-            case 5:
-                setColor1('#013220')
-                setColor2('#013220')
-                setColor3('#013220')
-                setColor4('#013220')
-                setColor5('#013220')
-                setColor6('#03C04A')
-                setColor7('#013220')
-                break;
-            case 6:
-                setColor1('#013220')
-                setColor2('#013220')
-                setColor3('#013220')
-                setColor4('#013220')
-                setColor5('#013220')
-                setColor6('#013220')
-                setColor7('#03C04A')
-                break;
-        }
-    },[formStep])
 
     useEffect(()=>{
         if(PP_FUNDO_INF!==0 && PP_FUNDO!==0 && PP_ALTURA_UTIL!==0 && PP_FACE!==0){
@@ -525,31 +112,313 @@ function MainPage (){
     return(
         <main>
             <div id='mainDiv'>
+                <div className="divHeader">
+                    <h1>Predição Permeância</h1>
+                    <h2>Preencha as características abaixo</h2>  
+                    <h2>para calcular a permeância prevista</h2>
+                </div>
                 <LoadingIndicator texto="Fazendo a predição..."/>
                 <div className='formDiv'>
                     <form>
-                        <div className='multistepForm'>
-                            <button className='setaEsquerda' onClick={(e)=>mudaStep(e,'decrementa')}></button>
-                            <div>
-                                {multiStepForm(formStep)}
+                        <div>
+                            <label>PP_ALTURA_UTIL</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_ALTURA_UTIL}
+                                onChange={(e)=>{setPP_ALTURA_UTIL(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_FACE</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_FACE}
+                                onChange={(e)=>{setPP_FACE(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_FUNDO</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_FUNDO}
+                                onChange={(e)=>{setPP_FUNDO(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_FUNDO_INF</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_FUNDO_INF}
+                                onChange={(e)=>{setPP_FUNDO_INF(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_VOLUME</label> 
+                            <label
+                                style={{font: "400 1.4rem Montserrat"}}
+                            >{PP_VOLUME}</label>
+                
+            
+                            <label>PP_FUROS_COLADEIRA</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_FUROS_COLADEIRA}
+                                onChange={(e)=>{setPP_FUROS_COLADEIRA(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_DIAMETRO_FUROS_COLADEI</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_DIAMETRO_FUROS_COLADEI}
+                                onChange={(e)=>{setPP_DIAMETRO_FUROS_COLADEI(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_NUMERO_FOLHAS</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_NUMERO_FOLHAS}
+                                onChange={(e)=>{setPP_NUMERO_FOLHAS(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_GRAMATURA_EXTERNO</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_EXTERNO}
+                                onChange={(e)=>{setPP_GRAMATURA_EXTERNO(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_GRAMATURA_2</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_2}
+                                onChange={(e)=>{setPP_GRAMATURA_2(Number(e.target.value))}}
+                            ></input>                        
+                    
+            
+                            <label>PP_GRAMATURA_3</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_3}
+                                onChange={(e)=>{setPP_GRAMATURA_3(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_GRAMATURA_4</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_4}
+                                onChange={(e)=>{setPP_GRAMATURA_4(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_GRAMATURA_5</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_5}
+                                onChange={(e)=>{setPP_GRAMATURA_5(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_GRAMATURA_INTERNO</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_GRAMATURA_INTERNO}
+                                onChange={(e)=>{setPP_GRAMATURA_INTERNO(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_LARGURA_PEAD</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_LARGURA_PEAD}
+                                onChange={(e)=>{setPP_LARGURA_PEAD(Number(e.target.value))}}
+                            ></input>
+                
+            
+                            <label>PP_VALVULA</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_VALVULA}
+                                onChange={(e)=>{setPP_VALVULA(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_TIPO_SACO_COLADO</label> 
+                            <select
+                                required
+                                value={PP_TIPO_SACO_COLADO}
+                                onChange={(e)=>{setPP_TIPO_SACO_COLADO(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {[
+                                        'COLVA','COLMI','COLPB','COLBA','COLME'
+                                    ].map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_PATCH</label> 
+                            <select
+                                required
+                                value={PP_PATCH}
+                                onChange={(e)=>{setPP_PATCH(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {[
+                                        'X','T','V','D','N','C','F'
+                                    ].map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_PERFURADO_TUBEIRA</label> 
+                            <select
+                                required
+                                value={PP_PERFURADO_TUBEIRA}
+                                onChange={(e)=>{setPP_PERFURADO_TUBEIRA(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {[
+                                        'S','N'
+                                    ].map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_PERFURADO_COLADEIRA</label> 
+                            <select
+                                required
+                                value={PP_PERFURADO_COLADEIRA}
+                                onChange={(e)=>{setPP_PERFURADO_COLADEIRA(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {[
+                                        'S','N'
+                                    ].map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                
+                            <label>PP_PAPEL_EXTERNO</label> 
+                            <select
+                                required
+                                value={PP_PAPEL_EXTERNO}
+                                onChange={(e)=>{setPP_PAPEL_EXTERNO(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPapeis.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_PAPEL_2</label> 
+                            <select
+                                required
+                                value={PP_PAPEL_2}
+                                onChange={(e)=>{setPP_PAPEL_2(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPapeis.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_PAPEL_3</label> 
+                            <select
+                                required
+                                value={PP_PAPEL_3}
+                                onChange={(e)=>{setPP_PAPEL_3(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPapeis.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_PAPEL_4</label> 
+                            <select
+                                required
+                                value={PP_PAPEL_4}
+                                onChange={(e)=>{setPP_PAPEL_4(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPapeis.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_PAPEL_5</label> 
+                            <select
+                                required
+                                value={PP_PAPEL_5}
+                                onChange={(e)=>{setPP_PAPEL_5(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPapeis.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                
+                            <label>PP_PAPEL_INTERNO</label> 
+                            <select
+                                required
+                                value={PP_PAPEL_INTERNO}
+                                onChange={(e)=>{setPP_PAPEL_INTERNO(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPapeis.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_TIP_PERF_FOL_EXT</label> 
+                            <select
+                                required
+                                value={PP_TIP_PERF_FOL_EXT}
+                                onChange={(e)=>{setPP_TIP_PERF_FOL_EXT(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPerfuracoes.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_TIP_PERF_FOL_2</label> 
+                            <select
+                                required
+                                value={PP_TIP_PERF_FOL_2}
+                                onChange={(e)=>{setPP_TIP_PERF_FOL_2(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPerfuracoes.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_TIP_PERF_FOL_3</label> 
+                            <select
+                                required
+                                value={PP_TIP_PERF_FOL_3}
+                                onChange={(e)=>{setPP_TIP_PERF_FOL_3(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPerfuracoes.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_TIP_PERF_FOL_4</label> 
+                            <select
+                                required
+                                value={PP_TIP_PERF_FOL_4}
+                                onChange={(e)=>{setPP_TIP_PERF_FOL_4(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPerfuracoes.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+
+                            <label>PP_TIP_PERF_FOL_5</label> 
+                            <select
+                                required
+                                value={PP_TIP_PERF_FOL_5}
+                                onChange={(e)=>{setPP_TIP_PERF_FOL_5(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPerfuracoes.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <label>PP_TIP_PERF_FOL_INT</label> 
+                            <select
+                                required
+                                value={PP_TIP_PERF_FOL_INT}
+                                onChange={(e)=>{setPP_TIP_PERF_FOL_INT(e.target.value)}}>
+                                    <option value="0"></option>
+                                    {   listaPerfuracoes.map((valor:any, index)=>{
+                                        return(<option key={index} value={valor}>{valor}</option>)
+                                    })}
+                            </select>
+                            <div className='predictionDiv'>
+                                <div className="resultDiv">
+                                    <p>A permeância prevista é</p>
+                                    {(prediction)===0?
+                                        (<p style={{font: "600 0.8rem Montserrat", textAlign: "center"}}>
+                                            Para prever a permeância clique em calcular</p>):(<label>{prediction}</label>)}
+                                </div>
+                                <div className='buttonPredictDiv'>
+                                    <button className="buttonPredict" onClick={(e)=>predict(e)}>Calcular</button>
+                                    <button className="buttonCancel">Limpar</button>
+                                </div>    
                             </div>
-                            <button className='setaDireita' onClick={(e)=>mudaStep(e,'incrementa')}></button>
-                        </div>
-                        <div className='divDot'>
-                            <span style={{backgroundColor:color1}}
-                                            className='dot'></span>
-                            <span style={{backgroundColor:color2}} 
-                                            className='dot'></span>
-                            <span style={{backgroundColor:color3}} 
-                                            className='dot'></span>
-                            <span style={{backgroundColor:color4}} 
-                                            className='dot'></span>
-                            <span style={{backgroundColor:color5}} 
-                                            className='dot'></span>
-                            <span style={{backgroundColor:color6}} 
-                                            className='dot'></span>
-                            <span style={{backgroundColor:color7}} 
-                                            className='dot'></span>
                         </div>
                     </form> 
                 </div>      
