@@ -99,6 +99,11 @@ form select{
     color:#333;
     border-radius: 0.4rem;
     cursor:pointer;
+    transition: border 0.8s;
+}
+
+form select:focus {
+    border: 3px solid green;
 }
 
 form div label{
