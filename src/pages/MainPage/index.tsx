@@ -88,6 +88,7 @@ function MainPage (){
             'PP_TIP_PERF_FOL_INT': PP_TIP_PERF_FOL_INT ,
             'PP_VOLUME': PP_VOLUME ,
         }
+        console.log(data)
         try{
             const response = await trackPromise(api.post("prediction/", data, {
                 headers: {
@@ -107,6 +108,63 @@ function MainPage (){
         }
     },[PP_ALTURA_UTIL,PP_FACE,PP_FUNDO,PP_FUNDO_INF])
 
+    useEffect(()=>{
+        if(PP_NUMERO_FOLHAS===0)return
+        resetaVariaveis()    
+    },[PP_NUMERO_FOLHAS])
+
+    const resetaVariaveis = () => {
+        if(PP_NUMERO_FOLHAS===2){
+            setPP_TIP_PERF_FOL_2("0")
+            setPP_TIP_PERF_FOL_3("0")
+            setPP_TIP_PERF_FOL_4("0")
+            setPP_TIP_PERF_FOL_5("0")
+            setPP_GRAMATURA_2(0)
+            setPP_GRAMATURA_3(0)
+            setPP_GRAMATURA_4(0)
+            setPP_GRAMATURA_5(0)
+            setPP_PAPEL_2("0")
+            setPP_PAPEL_3("0")
+            setPP_PAPEL_4("0")
+            setPP_PAPEL_5("0")
+        }
+        if(PP_NUMERO_FOLHAS===3){
+            setPP_TIP_PERF_FOL_3("0")
+            setPP_TIP_PERF_FOL_4("0")
+            setPP_TIP_PERF_FOL_5("0")
+            setPP_GRAMATURA_3(0)
+            setPP_GRAMATURA_4(0)
+            setPP_PAPEL_3("0")
+            setPP_PAPEL_4("0")
+            setPP_PAPEL_5("0")
+        }
+        if(PP_NUMERO_FOLHAS===4){
+            setPP_TIP_PERF_FOL_4("0")
+            setPP_TIP_PERF_FOL_5("0")
+            setPP_GRAMATURA_4(0)
+            setPP_GRAMATURA_5(0)
+            setPP_PAPEL_4("0")
+            setPP_PAPEL_5("0")
+        }
+        if(PP_NUMERO_FOLHAS===5){
+            setPP_TIP_PERF_FOL_5("0")
+            setPP_GRAMATURA_5(0)
+            setPP_PAPEL_5("0")
+        }
+        if(PP_PERFURADO_TUBEIRA==="N"){
+            setPP_TIP_PERF_FOL_EXT("0")
+            setPP_TIP_PERF_FOL_INT("0")
+            setPP_TIP_PERF_FOL_2("0")
+            setPP_TIP_PERF_FOL_3("0")
+            setPP_TIP_PERF_FOL_4("0")
+            setPP_TIP_PERF_FOL_5("0")
+        }
+        if(PP_PERFURADO_COLADEIRA==="N"){
+            setPP_DIAMETRO_FUROS_COLADEI(0)
+            setPP_FUROS_COLADEIRA(0)
+        }
+    }
+
     return(
         <main>
             <div id='mainDiv'>
@@ -125,24 +183,24 @@ function MainPage (){
                                 onChange={(e)=>{setPP_TIPO_SACO_COLADO(e.target.value)}}>
                                     <option value="0"></option>
                                     {[
-                                        'COLVA','COLMI','COLPB','COLBA','COLME'
+                                        'COLVA','COLMI','COLME'
                                     ].map((valor:any, index)=>{
                                         return(<option key={index} value={valor}>{valor}</option>)
                                     })}
                             </select>
-                            <label>PP_ALTURA_UTIL</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_ALTURA_UTIL}
-                                onChange={(e)=>{setPP_ALTURA_UTIL(Number(e.target.value))}}
-                            ></input>
                             <label>PP_FACE</label> 
                             <input 
                                 type='Number'
                                 required
                                 value={PP_FACE}
                                 onChange={(e)=>{setPP_FACE(Number(e.target.value))}}
+                            ></input>
+                            <label>PP_ALTURA_UTIL</label> 
+                            <input 
+                                type='Number'
+                                required
+                                value={PP_ALTURA_UTIL}
+                                onChange={(e)=>{setPP_ALTURA_UTIL(Number(e.target.value))}}
                             ></input>
                             <label>PP_PATCH</label> 
                             <select
@@ -205,20 +263,25 @@ function MainPage (){
                                         return(<option key={index} value={valor}>{valor}</option>)
                                     })}
                             </select>
-                            <label>PP_FUROS_COLADEIRA</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_FUROS_COLADEIRA}
-                                onChange={(e)=>{setPP_FUROS_COLADEIRA(Number(e.target.value))}}
-                            ></input>
-                            <label>PP_DIAMETRO_FUROS_COLADEI</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_DIAMETRO_FUROS_COLADEI}
-                                onChange={(e)=>{setPP_DIAMETRO_FUROS_COLADEI(Number(e.target.value))}}
-                            ></input>
+                            {(PP_PERFURADO_COLADEIRA==='S')&&(
+                                <React.Fragment>
+                                    <label>PP_FUROS_COLADEIRA</label> 
+                                    <input 
+                                        type='Number'
+                                        required
+                                        value={PP_FUROS_COLADEIRA}
+                                        onChange={(e)=>{setPP_FUROS_COLADEIRA(Number(e.target.value))}}
+                                    ></input>
+
+                                    <label>PP_DIAMETRO_FUROS_COLADEI</label> 
+                                    <input 
+                                        type='Number'
+                                        required
+                                        value={PP_DIAMETRO_FUROS_COLADEI}
+                                        onChange={(e)=>{setPP_DIAMETRO_FUROS_COLADEI(Number(e.target.value))}}
+                                    ></input>
+                                </React.Fragment>)}
+                           
                             <label>PP_NUMERO_FOLHAS</label> 
                             <input 
                                 type='Number'
@@ -243,74 +306,90 @@ function MainPage (){
                                 value={PP_GRAMATURA_EXTERNO}
                                 onChange={(e)=>{setPP_GRAMATURA_EXTERNO(Number(e.target.value))}}
                             ></input>
-                            <label>PP_PAPEL_2</label> 
-                            <select
-                                required
-                                value={PP_PAPEL_2}
-                                onChange={(e)=>{setPP_PAPEL_2(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {   listaPapeis.map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
-                            <label>PP_GRAMATURA_2</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_GRAMATURA_2}
-                                onChange={(e)=>{setPP_GRAMATURA_2(Number(e.target.value))}}
-                            ></input>                        
-                             <label>PP_PAPEL_3</label> 
-                            <select
-                                required
-                                value={PP_PAPEL_3}
-                                onChange={(e)=>{setPP_PAPEL_3(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {   listaPapeis.map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
-                            <label>PP_GRAMATURA_3</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_GRAMATURA_3}
-                                onChange={(e)=>{setPP_GRAMATURA_3(Number(e.target.value))}}
-                            ></input>
-                            <label>PP_PAPEL_4</label> 
-                            <select
-                                required
-                                value={PP_PAPEL_4}
-                                onChange={(e)=>{setPP_PAPEL_4(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {   listaPapeis.map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
-                            <label>PP_GRAMATURA_4</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_GRAMATURA_4}
-                                onChange={(e)=>{setPP_GRAMATURA_4(Number(e.target.value))}}
-                            ></input>
-                            <label>PP_PAPEL_5</label> 
-                            <select
-                                required
-                                value={PP_PAPEL_5}
-                                onChange={(e)=>{setPP_PAPEL_5(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {   listaPapeis.map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
-                            <label>PP_GRAMATURA_5</label> 
-                            <input 
-                                type='Number'
-                                required
-                                value={PP_GRAMATURA_5}
-                                onChange={(e)=>{setPP_GRAMATURA_5(Number(e.target.value))}}
-                            ></input>
+                            {(PP_NUMERO_FOLHAS>=3)&&
+                                (<React.Fragment>
+                                    <label>PP_PAPEL_2</label> 
+                                    <select
+                                        required
+                                        value={PP_PAPEL_2}
+                                        onChange={(e)=>{setPP_PAPEL_2(e.target.value)}}>
+                                            <option value="0"></option>
+                                            {   listaPapeis.map((valor:any, index)=>{
+                                                return(<option key={index} value={valor}>{valor}</option>)
+                                            })}
+                                    </select>
+                                    
+                                    <label>PP_GRAMATURA_2</label> 
+                                    <input 
+                                        type='Number'
+                                        required
+                                        value={PP_GRAMATURA_2}
+                                        onChange={(e)=>{setPP_GRAMATURA_2(Number(e.target.value))}}
+                                    ></input> 
+                                </React.Fragment>)}        
+                            {(PP_NUMERO_FOLHAS>=4)&&
+                                (<React.Fragment>               
+                                    <label>PP_PAPEL_3</label> 
+                                    <select
+                                        required
+                                        value={PP_PAPEL_3}
+                                        onChange={(e)=>{setPP_PAPEL_3(e.target.value)}}>
+                                            <option value="0"></option>
+                                            {   listaPapeis.map((valor:any, index)=>{
+                                                return(<option key={index} value={valor}>{valor}</option>)
+                                            })}
+                                    </select>
+
+                                    <label>PP_GRAMATURA_3</label> 
+                                    <input 
+                                        type='Number'
+                                        required
+                                        value={PP_GRAMATURA_3}
+                                        onChange={(e)=>{setPP_GRAMATURA_3(Number(e.target.value))}}
+                                    ></input>
+                                </React.Fragment>)} 
+                            {(PP_NUMERO_FOLHAS>=5)&&
+                                (<React.Fragment>         
+                                    <label>PP_PAPEL_4</label> 
+                                    <select
+                                        required
+                                        value={PP_PAPEL_4}
+                                        onChange={(e)=>{setPP_PAPEL_4(e.target.value)}}>
+                                            <option value="0"></option>
+                                            {   listaPapeis.map((valor:any, index)=>{
+                                                return(<option key={index} value={valor}>{valor}</option>)
+                                            })}
+                                    </select>
+
+                                    <label>PP_GRAMATURA_4</label> 
+                                    <input 
+                                        type='Number'
+                                        required
+                                        value={PP_GRAMATURA_4}
+                                        onChange={(e)=>{setPP_GRAMATURA_4(Number(e.target.value))}}
+                                    ></input>
+                                </React.Fragment>)} 
+                            {(PP_NUMERO_FOLHAS>=6)&&
+                                (<React.Fragment>  
+                                    <label>PP_PAPEL_5</label> 
+                                    <select
+                                        required
+                                        value={PP_PAPEL_5}
+                                        onChange={(e)=>{setPP_PAPEL_5(e.target.value)}}>
+                                            <option value="0"></option>
+                                            {   listaPapeis.map((valor:any, index)=>{
+                                                return(<option key={index} value={valor}>{valor}</option>)
+                                            })}
+                                    </select>
+
+                                    <label>PP_GRAMATURA_5</label> 
+                                    <input 
+                                        type='Number'
+                                        required
+                                        value={PP_GRAMATURA_5}
+                                        onChange={(e)=>{setPP_GRAMATURA_5(Number(e.target.value))}}
+                                    ></input>
+                                </React.Fragment>)} 
                             <label>PP_PAPEL_INTERNO</label> 
                             <select
                                 required
@@ -328,67 +407,90 @@ function MainPage (){
                                 value={PP_GRAMATURA_INTERNO}
                                 onChange={(e)=>{setPP_GRAMATURA_INTERNO(Number(e.target.value))}}
                             ></input>
-                            <label>PP_TIP_PERF_FOL_EXT</label> 
-                            <select
-                                required
-                                value={PP_TIP_PERF_FOL_EXT}
-                                onChange={(e)=>{setPP_TIP_PERF_FOL_EXT(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {   listaPerfuracoes.map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
-                            <label>PP_TIP_PERF_FOL_2</label> 
-                            <select
-                                required
-                                value={PP_TIP_PERF_FOL_2}
-                                onChange={(e)=>{setPP_TIP_PERF_FOL_2(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {   listaPerfuracoes.map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
-                            <label>PP_TIP_PERF_FOL_3</label> 
-                            <select
-                                required
-                                value={PP_TIP_PERF_FOL_3}
-                                onChange={(e)=>{setPP_TIP_PERF_FOL_3(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {   listaPerfuracoes.map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
-                            <label>PP_TIP_PERF_FOL_4</label> 
-                            <select
-                                required
-                                value={PP_TIP_PERF_FOL_4}
-                                onChange={(e)=>{setPP_TIP_PERF_FOL_4(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {   listaPerfuracoes.map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
-
-                            <label>PP_TIP_PERF_FOL_5</label> 
-                            <select
-                                required
-                                value={PP_TIP_PERF_FOL_5}
-                                onChange={(e)=>{setPP_TIP_PERF_FOL_5(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {   listaPerfuracoes.map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
-                            <label>PP_TIP_PERF_FOL_INT</label> 
-                            <select
-                                required
-                                value={PP_TIP_PERF_FOL_INT}
-                                onChange={(e)=>{setPP_TIP_PERF_FOL_INT(e.target.value)}}>
-                                    <option value="0"></option>
-                                    {   listaPerfuracoes.map((valor:any, index)=>{
-                                        return(<option key={index} value={valor}>{valor}</option>)
-                                    })}
-                            </select>
+                            {(PP_PERFURADO_TUBEIRA==='S')&&(
+                                <React.Fragment>
+                                    <label>PP_TIP_PERF_FOL_EXT</label> 
+                                    <select
+                                        required
+                                        value={PP_TIP_PERF_FOL_EXT}
+                                        onChange={(e)=>{setPP_TIP_PERF_FOL_EXT(e.target.value)}}>
+                                            <option value="0"></option>
+                                            {   listaPerfuracoes.map((valor:any, index)=>{
+                                                return(<option key={index} value={valor}>{valor}</option>)
+                                            })}
+                                    </select>
+                                </React.Fragment>
+                            )}
+                            {(PP_PERFURADO_TUBEIRA==='S' && PP_NUMERO_FOLHAS>=3)&&(
+                                <React.Fragment>
+                                    <label>PP_TIP_PERF_FOL_2</label> 
+                                    <select
+                                        required
+                                        value={PP_TIP_PERF_FOL_2}
+                                        onChange={(e)=>{setPP_TIP_PERF_FOL_2(e.target.value)}}>
+                                            <option value="0"></option>
+                                            {   listaPerfuracoes.map((valor:any, index)=>{
+                                                return(<option key={index} value={valor}>{valor}</option>)
+                                            })}
+                                    </select>
+                                </React.Fragment> 
+                            )}
+                            {(PP_PERFURADO_TUBEIRA==='S' && PP_NUMERO_FOLHAS>=4)&&(
+                                <React.Fragment>
+                                    <label>PP_TIP_PERF_FOL_3</label> 
+                                    <select
+                                        required
+                                        value={PP_TIP_PERF_FOL_3}
+                                        onChange={(e)=>{setPP_TIP_PERF_FOL_3(e.target.value)}}>
+                                            <option value="0"></option>
+                                            {   listaPerfuracoes.map((valor:any, index)=>{
+                                                return(<option key={index} value={valor}>{valor}</option>)
+                                            })}
+                                    </select>
+                                </React.Fragment>
+                            )}
+                            {(PP_PERFURADO_TUBEIRA==='S' && PP_NUMERO_FOLHAS>=5)&&(
+                                <React.Fragment>
+                                    <label>PP_TIP_PERF_FOL_4</label> 
+                                    <select
+                                        required
+                                        value={PP_TIP_PERF_FOL_4}
+                                        onChange={(e)=>{setPP_TIP_PERF_FOL_4(e.target.value)}}>
+                                            <option value="0"></option>
+                                            {   listaPerfuracoes.map((valor:any, index)=>{
+                                                return(<option key={index} value={valor}>{valor}</option>)
+                                            })}
+                                    </select>
+                                </React.Fragment>
+                            )}
+                            {(PP_PERFURADO_TUBEIRA==='S' && PP_NUMERO_FOLHAS>=5)&&(
+                                <React.Fragment>
+                                     <label>PP_TIP_PERF_FOL_5</label> 
+                                    <select
+                                        required
+                                        value={PP_TIP_PERF_FOL_5}
+                                        onChange={(e)=>{setPP_TIP_PERF_FOL_5(e.target.value)}}>
+                                            <option value="0"></option>
+                                            {   listaPerfuracoes.map((valor:any, index)=>{
+                                                return(<option key={index} value={valor}>{valor}</option>)
+                                            })}
+                                    </select>
+                                </React.Fragment>
+                            )}
+                            {(PP_PERFURADO_TUBEIRA==='S')&&(
+                                <React.Fragment>
+                                    <label>PP_TIP_PERF_FOL_INT</label> 
+                                    <select
+                                        required
+                                        value={PP_TIP_PERF_FOL_INT}
+                                        onChange={(e)=>{setPP_TIP_PERF_FOL_INT(e.target.value)}}>
+                                            <option value="0"></option>
+                                            {   listaPerfuracoes.map((valor:any, index)=>{
+                                                return(<option key={index} value={valor}>{valor}</option>)
+                                            })}
+                                    </select>
+                                </React.Fragment>
+                            )}
                             <label>PP_LARGURA_PEAD</label> 
                             <input 
                                 type='Number'
