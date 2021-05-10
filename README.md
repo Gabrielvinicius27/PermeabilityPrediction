@@ -1,5 +1,10 @@
 # App to predict Permeability
 
+This is one application that I made at my work, that helps engineering team to predict a product characteristic!
+Below I show you a sneak peek of the front-end! 
+
+![alt text](https://github.com/Gabrielvinicius27/PermeabilityPrediction/blob/main/src/Assets/Icons/VisualizacaoDoProjeto.png?raw=true)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
